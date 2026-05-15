@@ -2,7 +2,7 @@
 include_once "Game.php";
 session_start();
 
-if(isset($_GET['reset']) && $_GET['reset'] === "1") {
+if(isset($_POST['reset']) && $_POST['reset'] === "1") {
     unset($_SESSION['game']);
     header("Location: index.php");
     exit;
@@ -18,13 +18,15 @@ else {
 
 $gameEnded = $game->checkEndGame();
 
-if (isset($_GET['row']) && isset($_GET['col']) && !$gameEnded) {
-    $row = (int) $_GET['row'];
-    $col = (int) $_GET['col'];
+if (isset($_POST['row']) && isset($_POST['col']) && !$gameEnded) {
+    $row = (int) $_POST['row'];
+    $col = (int) $_POST['col'];
 
     $game->touchNode($row, $col);
     $gameEnded = $game->checkEndGame();
     $_SESSION['game'] = $game;
+    header("Location: index.php");
+    exit;
 }
 
 ?>
@@ -38,20 +40,22 @@ if (isset($_GET['row']) && isset($_GET['col']) && !$gameEnded) {
     <title>NodesGame</title>
 </head>
 <body>
-    <h1 class="title">Nodes Game</h1>
+    <h1 class="title">Nodes Puzzle</h1>
 <div class="gamecontainer <?= $gameEnded ? 'locked' : '' ?>">
         <?php foreach($game->getGameGrid() as $rowIndex => $row): ?> 
             <div class="row">
                 <?php foreach($row as $colIndex => $node): ?>
-                    <a href="index.php?row=<?= $rowIndex ?>&col=<?= $colIndex ?>">
-                        <div class="cell">
+                   <form method="POST" action="index.php">
+                        <input type="hidden" name="row" value="<?= $rowIndex ?>">
+                        <input type="hidden" name="col" value="<?= $colIndex ?>">
+                        <button type="submit" class="cell">
                             <?php if ($node->getState()): ?>
                                 <img src="images/on.png">
                             <?php else: ?>
                                 <img src="images/off.png">
                             <?php endif; ?>
-                        </div>
-                    </a>
+                            </button>
+                    </form>
                 <?php endforeach; ?> 
             </div>
         <?php endforeach; ?>
@@ -59,12 +63,11 @@ if (isset($_GET['row']) && isset($_GET['col']) && !$gameEnded) {
         <?php if ($gameEnded): ?>
         <h2>WINNER WINNER CHICKEN DINNER</h2>
         <?php endif; ?>
-    <a href="index.php?reset=1">
-        <div class="reset">
-            <p>RESET</p>;
-        </div> 
-    </a> 
-
+    <form method="POST" action="index.php">
+        <button type="submit" name="reset" value="1" class="reset">
+            <p>RESET</p>
+        </button> 
+    </form> 
 
 </body>
 </html>

@@ -1,0 +1,24 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor settings
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Composer (if you use it later)
+vendor/
+composer.lock
+
+# Environment files (if you add them later)
+.env
+
+# Cache / temp files
+cache/
+tmp/
+
+# OS hidden files
+.DS_Store

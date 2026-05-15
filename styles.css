@@ -1,0 +1,45 @@
+.gamecontainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* background-color: rgb(121, 106, 87); */
+    background-color:rgb(114, 96, 123);
+    border: 5px solid rgb(124, 46, 111);
+    gap: 8vw;
+    padding: 2vw;
+}
+
+.row {
+    display: grid;
+    gap: 2vw;
+}
+
+.cell {
+    background-color: rgb(246, 169, 224);
+    font-size: 30px;
+    display: grid;
+    place-items: center;    
+}
+
+.cell img {
+    max-width: 6vw;
+    height: auto;
+    display: block;
+}
+
+body {
+    max-width: auto;
+    background-color: rgb(171, 141, 165);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    align-items: stretch;
+    place-items: center;
+}
+
+.title {
+    border: 1px solid purple;
+    font-size: 3vw;
+}
+
+.locked a {
+    pointer-events: none;
+}
